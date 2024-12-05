@@ -1,8 +1,9 @@
 import { Student } from '@/types/student';
-import { StudentsFilters, StudentsSlice, StudentsSorting } from '@/store/students/types';
 import { createAppSlice } from '@/store/createAppSlice';
-import { searchStudents } from '@/store/students/api';
-import { getPayloadFilters } from '@/store/students/utilts';
+
+import { StudentsFilters, StudentsSlice, StudentsSorting } from './types';
+import { searchStudents, updateStudent as updateStudentRequest } from './api';
+import { getPayloadFilters } from './utils';
 
 const initialState: StudentsSlice = {
   items: [],
@@ -69,14 +70,24 @@ export const studentsSlice = createAppSlice({
         },
       },
     ),
-    updateStudent: creators.reducer<Student>((state, action) => {
-      state.items = state.items.map((student) => {
-        if (student.id === action.payload.id) {
-          return action.payload;
-        }
-        return student;
-      });
-    }),
+    updateStudent: creators.asyncThunk(
+      (student: Student) => {
+        return updateStudentRequest(student.id, student);
+      },
+      {
+        fulfilled: (state, action) => {
+          const updatedStudent = action.payload?.student as Student;
+          if (updatedStudent) {
+            state.items = state.items.map((student) => {
+              if (student.id === updatedStudent.id) {
+                return updatedStudent;
+              }
+              return student;
+            });
+          }
+        },
+      },
+    ),
     setStudentsPage: creators.reducer<number>((state, action) => {
       state.page = action.payload;
     }),

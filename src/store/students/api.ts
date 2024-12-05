@@ -1,3 +1,4 @@
+import { Student } from '@/types/student';
 import { GetStudentsParams } from '@/store/students/types';
 
 export const searchStudents = async (params: GetStudentsParams) => {
@@ -19,5 +20,21 @@ export const searchStudents = async (params: GetStudentsParams) => {
   } catch (err) {
     console.error('fetchStudents error:', err);
     return { data: [] };
+  }
+};
+
+export const updateStudent = async (id: string, payload: Partial<Student>) => {
+  try {
+    const res = await fetch(`/api/students/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+    return res.json();
+  } catch (err) {
+    console.error('updateStudent error:', err);
+    return null;
   }
 };
