@@ -4,8 +4,14 @@ import { PickerChangeHandlerContext } from '@mui/x-date-pickers/models/pickers';
 import dayjs, { Dayjs } from 'dayjs';
 
 import { StudentsFilters } from '@/store/students/types';
-import { useAppDispatch } from '@/store/hooks';
-import { getStudents, setStudentsFilters, setStudentsPage } from '@/store/students/slice';
+import { useIsFirstRender } from '@/hooks/useIsFirstRender';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import {
+  getStudents,
+  selectStudentsFilters,
+  setStudentsFilters,
+  setStudentsPage,
+} from '@/store/students/slice';
 
 type Props = {
   field: keyof StudentsFilters;
@@ -18,6 +24,10 @@ export const StudentsDateFilter = memo<Props>((props) => {
   const { label, field, min, max } = props;
 
   const dispatch = useAppDispatch();
+  const isFirstRender = useIsFirstRender();
+
+  const filters = useAppSelector(selectStudentsFilters);
+  const filterDate = filters[field];
 
   const [date, setDate] = useState<Dayjs | null>(null);
   const [open, setOpen] = useState<boolean>(false);
@@ -33,7 +43,9 @@ export const StudentsDateFilter = memo<Props>((props) => {
   }, []);
 
   useEffect(() => {
-    if (!open && isValid) {
+    if (isFirstRender || open || !isValid) return;
+    const isDateChanged = !dayjs(filterDate || undefined).isSame(dayjs(date || undefined));
+    if (isDateChanged) {
       dispatch(setStudentsFilters({ [field]: date ? date.toDate() : null }));
       dispatch(setStudentsPage(0));
       dispatch(getStudents());
