@@ -12,8 +12,8 @@ export const StudentsTableHeader = memo(() => {
         <TableCell style={{ minWidth: 160 }}>Имя</TableCell>
         <TableCell style={{ minWidth: 200 }}>Год рождения</TableCell>
         <TableCell style={{ minWidth: 160 }}>IDNP</TableCell>
-        <TableCell style={{ minWidth: 100 }}>Статус</TableCell>
-        <TableCell style={{ minWidth: 100 }} />
+        <TableCell style={{ minWidth: 120 }}>Статус</TableCell>
+        <TableCell style={{ minWidth: 180 }} />
       </TableRow>
     </TableHead>
   );

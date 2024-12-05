@@ -34,6 +34,8 @@ export const StudentsTableActions = memo<Props>(({ student }) => {
       startIcon={<Icon />}
       onClick={toggleStatus}
       color={student.status === StudentStatuses.Expelled ? 'primary' : 'error'}
+      variant="contained"
+      size="small"
     >
       {student.status === StudentStatuses.Expelled ? 'Включить в группу' : 'Удалить из группы'}
     </Button>
