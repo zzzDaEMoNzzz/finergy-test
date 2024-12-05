@@ -7,8 +7,9 @@ import { getPayloadFilters } from '@/store/students/utilts';
 const initialState: StudentsSlice = {
   items: [],
   isLoading: false,
+  total: 0,
   page: 0,
-  perPage: 20,
+  perPage: 10,
   filters: {
     lastName: '',
     firstName: '',
@@ -24,9 +25,6 @@ export const studentsSlice = createAppSlice({
   name: 'students',
   initialState,
   reducers: (creators) => ({
-    // setStudents: creators.reducer<Student[]>((state, action) => {
-    //   state.items = action.payload;
-    // }),
     getStudents: creators.asyncThunk(
       async (_: void, thunkAPI) => {
         const state = thunkAPI.getState() as { students: StudentsSlice };
@@ -46,7 +44,7 @@ export const studentsSlice = createAppSlice({
         fulfilled: (state, action) => {
           state.isLoading = false;
           state.items = action.payload.students;
-          const { filters, page, perPage, sortBy, sortOrder } = action.payload.meta;
+          const { filters, page, perPage, sortBy, sortOrder, total } = action.payload.meta;
           if (typeof filters === 'object') {
             state.filters = filters;
           }
@@ -55,6 +53,9 @@ export const studentsSlice = createAppSlice({
           }
           if (typeof perPage === 'number') {
             state.perPage = perPage;
+          }
+          if (typeof total === 'number') {
+            state.total = total;
           }
           if (typeof sortBy === 'string') {
             state.sortBy = sortBy as keyof Student;
@@ -76,10 +77,17 @@ export const studentsSlice = createAppSlice({
         return student;
       });
     }),
+    setStudentsPage: creators.reducer<number>((state, action) => {
+      state.page = action.payload;
+    }),
+    setStudentsPageSize: creators.reducer<number>((state, action) => {
+      state.perPage = action.payload;
+    }),
   }),
   selectors: {
     selectStudents: (state) => state.items,
     selectStudentsIsLoading: (state) => state.isLoading,
+    selectStudentsTotal: (state) => state.total,
     selectStudentsPage: (state) => state.page,
     selectStudentsPageSize: (state) => state.perPage,
     selectStudentsSortField: (state) => state.sortBy,
@@ -88,11 +96,13 @@ export const studentsSlice = createAppSlice({
   },
 });
 
-export const { getStudents, updateStudent } = studentsSlice.actions;
+export const { getStudents, updateStudent, setStudentsPage, setStudentsPageSize } =
+  studentsSlice.actions;
 
 export const {
   selectStudents,
   selectStudentsIsLoading,
+  selectStudentsTotal,
   selectStudentsPage,
   selectStudentsPageSize,
   selectStudentsSortField,

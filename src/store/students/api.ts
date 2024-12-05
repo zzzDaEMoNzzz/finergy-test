@@ -1,7 +1,6 @@
 import { GetStudentsParams } from '@/store/students/types';
 
 export const searchStudents = async (params: GetStudentsParams) => {
-  console.log({ params });
   try {
     const res = await fetch('/api/students/search', {
       method: 'POST',

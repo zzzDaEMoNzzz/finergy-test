@@ -22,6 +22,7 @@ export type StudentsSlice = StudentsPagination &
   StudentsSorting & {
     items: Student[];
     isLoading: boolean;
+    total: number;
     filters: StudentsFilters;
   };
 

@@ -64,8 +64,6 @@ export const makeMirageServer = () => {
                 console.warn('Unknown filter:', key);
             }
           });
-          console.log({ filters });
-          // todo
         }
 
         if (sortBy && sortOrder) {
@@ -82,6 +80,8 @@ export const makeMirageServer = () => {
           });
         }
 
+        const total = collection.length;
+
         if (typeof page === 'number' && typeof perPage === 'number') {
           const start = page * perPage;
           const end = start + perPage;
@@ -95,7 +95,7 @@ export const makeMirageServer = () => {
           sortOrder,
           page,
           perPage,
-          total: collection.length,
+          total,
         };
 
         return json;
