@@ -1,14 +1,15 @@
 export const StudentStatuses = {
-  Studies: 0,
-  Expelled: 1,
+  Expelled: 0,
+  Studies: 1,
 } as const;
 
 export type StudentStatus = (typeof StudentStatuses)[keyof typeof StudentStatuses];
 
 export type Student = {
-  id: number;
-  name: string;
-  dateBirth: string;
+  id: string;
+  lastName: string;
+  firstName: string;
+  dateBirth: string | Date;
   idnp: string;
   status: StudentStatus;
 };

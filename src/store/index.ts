@@ -10,7 +10,9 @@ export const makeStore = () => {
   return configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) => {
-      return getDefaultMiddleware(); //.concat(quotesApiSlice.middleware);
+      return getDefaultMiddleware({
+        serializableCheck: false,
+      });
     },
   });
 };

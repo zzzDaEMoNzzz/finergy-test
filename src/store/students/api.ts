@@ -1,18 +1,24 @@
-import axios from 'axios';
+import { GetStudentsParams } from '@/store/students/types';
 
-import { StudentsFiltering, StudentsPagination, StudentsSorting } from '@/store/students/types';
-
-export const fetchStudents = async (
-  params: Partial<StudentsPagination & StudentsSorting & StudentsFiltering>,
-) => {
-  const { page = 0, perPage = 20, sortBy = 'id', sortOrder = 'asc', filters = {} } = params;
-  return axios.get('/api/students', {
-    params: {
-      page,
-      perPage,
-      sortBy,
-      sortOrder,
-      filters,
-    },
-  });
+export const searchStudents = async (params: GetStudentsParams) => {
+  console.log({ params });
+  try {
+    const res = await fetch('/api/students/search', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        page: params.page,
+        perPage: params.perPage,
+        sortBy: params.sortBy,
+        sortOrder: params.sortOrder,
+        filters: params.filters,
+      }),
+    });
+    return res.json();
+  } catch (err) {
+    console.error('fetchStudents error:', err);
+    return { data: [] };
+  }
 };

@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
-import { StoreProvider } from '@/app/StoreProvider';
+import { StoreProvider } from '@/store/provider';
+import { MirageServer } from '@/mirage';
 
 import './globals.css';
 
@@ -28,6 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <StoreProvider>
+      {process.env.NODE_ENV === 'development' && <MirageServer />}
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable}`}>{children}</body>
       </html>

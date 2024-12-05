@@ -10,13 +10,21 @@ export type StudentsSorting = {
   sortOrder: 'asc' | 'desc' | null;
 };
 
-export type StudentsFiltering = {
-  filters: Record<string, string>;
+export type StudentsFilters = {
+  lastName: string;
+  firstName: string;
+  idnp: string;
+  dateBirthFrom: Date | null;
+  dateBirthTo: Date | null;
 };
 
 export type StudentsSlice = StudentsPagination &
-  StudentsSorting &
-  StudentsFiltering & {
+  StudentsSorting & {
     items: Student[];
     isLoading: boolean;
+    filters: StudentsFilters;
   };
+
+export type GetStudentsParams = Partial<
+  StudentsPagination & StudentsSorting & { filters: Partial<StudentsFilters> }
+>;
