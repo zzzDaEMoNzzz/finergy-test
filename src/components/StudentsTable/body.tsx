@@ -16,6 +16,8 @@ import {
   selectStudentsPageSize,
 } from '@/store/students/slice';
 
+import { StudentsTableActions } from './actions';
+
 const renderStatus = (status: StudentStatus) => {
   switch (status) {
     case StudentStatuses.Studies:
@@ -56,7 +58,9 @@ export const StudentsTableBody = memo(() => {
               <TableCell>{new Date(student.dateBirth).toLocaleDateString('ru-RU')}</TableCell>
               <TableCell>{student.idnp}</TableCell>
               <TableCell>{renderStatus(student.status)}</TableCell>
-              <TableCell />
+              <TableCell>
+                <StudentsTableActions student={student} />
+              </TableCell>
             </StyledTableRow>
           ))}
         </>
