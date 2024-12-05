@@ -83,6 +83,12 @@ export const studentsSlice = createAppSlice({
     setStudentsPageSize: creators.reducer<number>((state, action) => {
       state.perPage = action.payload;
     }),
+    setStudentsSortField: creators.reducer<StudentsSlice['sortBy']>((state, action) => {
+      state.sortBy = action.payload;
+    }),
+    setStudentsSortOrder: creators.reducer<StudentsSlice['sortOrder']>((state, action) => {
+      state.sortOrder = action.payload;
+    }),
   }),
   selectors: {
     selectStudents: (state) => state.items,
@@ -96,8 +102,14 @@ export const studentsSlice = createAppSlice({
   },
 });
 
-export const { getStudents, updateStudent, setStudentsPage, setStudentsPageSize } =
-  studentsSlice.actions;
+export const {
+  getStudents,
+  updateStudent,
+  setStudentsPage,
+  setStudentsPageSize,
+  setStudentsSortField,
+  setStudentsSortOrder,
+} = studentsSlice.actions;
 
 export const {
   selectStudents,
