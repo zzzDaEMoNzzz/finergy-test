@@ -1,21 +1,23 @@
-import { createServer, Model } from 'miragejs';
+import { createServer } from 'miragejs';
 
-import { Student } from '@/types/student';
+import { Server, ServerConfig } from 'miragejs/server';
+import { AnyFactories, AnyModels } from 'miragejs/-types';
 
-import studentsFixtures from './students/fixtures.json';
-import { setupStudentsRoutes } from './students';
+import { setupStudentsServer } from './students';
+
+const routesHandlers: ((this: Server) => void)[] = [];
 
 export const makeMirageServer = () => {
-  return createServer({
-    models: {
-      student: Model.extend<Partial<Student>>({}),
-    },
-    fixtures: {
-      students: studentsFixtures,
-    },
+  const config: ServerConfig<AnyModels, AnyFactories> = {
+    models: {},
+    fixtures: {},
     routes() {
       this.namespace = 'api';
-      setupStudentsRoutes.call(this);
+      routesHandlers.forEach((handler) => {
+        handler.call(this);
+      });
     },
-  });
+  };
+  setupStudentsServer(config, routesHandlers);
+  return createServer(config);
 };
