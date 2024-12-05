@@ -1,11 +1,9 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
-import { ThemeProvider } from '@mui/material/styles';
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
-import { theme } from '@/app/theme';
 import { StoreProvider } from '@/store/provider';
 import { MirageServer } from '@/mirage';
+import { Providers } from '@/app/providers';
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -29,11 +27,9 @@ export default function RootLayout({
   return (
     <StoreProvider>
       {process.env.NODE_ENV === 'development' && <MirageServer />}
-      <html lang="en">
+      <html lang="ru">
         <body className={roboto.variable}>
-          <AppRouterCacheProvider>
-            <ThemeProvider theme={theme}>{children}</ThemeProvider>
-          </AppRouterCacheProvider>
+          <Providers>{children}</Providers>
         </body>
       </html>
     </StoreProvider>

@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import { StudentsTable } from '@/components/StudentsTable';
+import { StudentsFilters } from '@/components/StudentsFilters';
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
         <Typography variant="h2" component="h1" gutterBottom>
           Студенты
         </Typography>
+        <StudentsFilters />
         <StudentsTable />
       </Box>
     </Container>

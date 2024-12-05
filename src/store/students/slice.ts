@@ -1,12 +1,12 @@
 import { Student } from '@/types/student';
-import { StudentsSlice, StudentsSorting } from '@/store/students/types';
+import { StudentsFilters, StudentsSlice, StudentsSorting } from '@/store/students/types';
 import { createAppSlice } from '@/store/createAppSlice';
 import { searchStudents } from '@/store/students/api';
 import { getPayloadFilters } from '@/store/students/utilts';
 
 const initialState: StudentsSlice = {
   items: [],
-  isLoading: false,
+  isLoading: true,
   total: 0,
   page: 0,
   perPage: 10,
@@ -89,6 +89,12 @@ export const studentsSlice = createAppSlice({
     setStudentsSortOrder: creators.reducer<StudentsSlice['sortOrder']>((state, action) => {
       state.sortOrder = action.payload;
     }),
+    setStudentsFilters: creators.reducer<Partial<StudentsFilters>>((state, action) => {
+      state.filters = {
+        ...state.filters,
+        ...action.payload,
+      };
+    }),
   }),
   selectors: {
     selectStudents: (state) => state.items,
@@ -109,6 +115,7 @@ export const {
   setStudentsPageSize,
   setStudentsSortField,
   setStudentsSortOrder,
+  setStudentsFilters,
 } = studentsSlice.actions;
 
 export const {

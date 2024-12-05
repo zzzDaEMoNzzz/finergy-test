@@ -9,6 +9,7 @@ import { useAppSelector } from '@/store/hooks';
 import { selectStudents, selectStudentsIsLoading } from '@/store/students/slice';
 
 import { StudentsTableBodyRow } from './row';
+import Typography from '@mui/material/Typography';
 
 export const StudentsTableBody = memo(() => {
   const students = useAppSelector(selectStudents);
@@ -16,12 +17,20 @@ export const StudentsTableBody = memo(() => {
 
   return (
     <TableBody>
-      {isLoading || !students.length ? (
+      {isLoading ? (
         <TableRow>
           <TableCell colSpan={7}>
             <Box display="flex" alignItems="center" justifyContent="center" height={80}>
               <CircularProgress size={64} />
             </Box>
+          </TableCell>
+        </TableRow>
+      ) : students.length === 0 ? (
+        <TableRow>
+          <TableCell colSpan={7}>
+            <Typography variant="subtitle1" component="span">
+              Нет данных
+            </Typography>
           </TableCell>
         </TableRow>
       ) : (
