@@ -51,6 +51,7 @@ export const StudentsTableActions = memo<Props>(({ student }) => {
       color={student.status === StudentStatuses.Expelled ? 'primary' : 'error'}
       variant="contained"
       size="small"
+      className="no-print"
     >
       {student.status === StudentStatuses.Expelled ? 'Включить в группу' : 'Удалить из группы'}
     </Button>

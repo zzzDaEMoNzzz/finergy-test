@@ -14,7 +14,7 @@ export const StudentsFilters = memo(() => {
   const { dateBirthFrom, dateBirthTo } = useAppSelector(selectStudentsFilters);
 
   return (
-    <Grid container spacing={2} marginBottom={2}>
+    <Grid container spacing={2} marginBottom={2} className="no-print">
       <Grid container spacing={2} size={{ xs: 12, lg: 7 }}>
         <Grid size={4}>
           <StudentsTextFilter label="Фамилия" field="lastName" />

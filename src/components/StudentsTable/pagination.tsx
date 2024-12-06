@@ -57,6 +57,7 @@ export const StudentsTablePagination = memo(() => {
           },
         },
       }}
+      className="no-print"
     />
   );
 });
