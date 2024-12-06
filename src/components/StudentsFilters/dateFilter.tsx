@@ -57,7 +57,7 @@ export const StudentsDateFilter = memo<Props>((props) => {
     <DatePicker
       label={label}
       slotProps={{
-        textField: { size: 'small' },
+        textField: { size: 'small', fullWidth: true },
         field: { clearable: true },
       }}
       value={date}

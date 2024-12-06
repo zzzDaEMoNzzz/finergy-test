@@ -43,6 +43,7 @@ export const StudentsTextFilter = memo<Props>((props) => {
       onChange={onChange}
       error={!isValid}
       helperText={!isValid ? errorText : undefined}
+      fullWidth
     />
   );
 });
