@@ -27,7 +27,7 @@ export const StudentsToolbar = memo(() => {
         <ToolbarButton tooltip="Печать" onClick={printHandler}>
           <Print />
         </ToolbarButton>
-        <ToolbarButton tooltip="Добавить студента" onClick={addStudentModal.show}>
+        <ToolbarButton tooltip="Добавить нового студента" onClick={addStudentModal.show}>
           <PersonAdd />
         </ToolbarButton>
       </Box>

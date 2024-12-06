@@ -59,8 +59,8 @@ export const AddStudentModal = memo<Props>((props) => {
   );
 
   return (
-    <Dialog {...props} aria-labelledby="Добавить студента">
-      <DialogTitle>Добавить студента</DialogTitle>
+    <Dialog {...props} aria-labelledby="Добавить нового студента">
+      <DialogTitle>Добавить нового студента</DialogTitle>
       <DialogContent>
         <Box
           display="flex"
