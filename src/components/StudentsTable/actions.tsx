@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import { Student, StudentStatuses } from '@/types/student';
 import { useAppDispatch } from '@/store/hooks';
 import { updateStudent } from '@/store/students/slice';
+import { showNotification } from '@/store/notifications/slice';
 
 type Props = {
   student: Student;
@@ -19,13 +20,22 @@ export const StudentsTableActions = memo<Props>(({ student }) => {
 
   const toggleStatus = useCallback(async () => {
     setIsLoading(true);
-    await dispatch(
+    const res = await dispatch(
       updateStudent({
         ...student,
         status:
           student.status === StudentStatuses.Expelled
             ? StudentStatuses.Studies
             : StudentStatuses.Expelled,
+      }),
+    );
+    dispatch(
+      showNotification({
+        severity: 'success',
+        description:
+          res.payload.student.status === StudentStatuses.Expelled
+            ? 'Студент удален из группы'
+            : 'Студент добавлен в группу',
       }),
     );
     setIsLoading(false);
