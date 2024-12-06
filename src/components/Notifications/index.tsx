@@ -12,7 +12,7 @@ export const Notifications = memo(() => {
   const notifications = useAppSelector(selectNotifications);
 
   return (
-    <NotificationsContainer>
+    <NotificationsContainer className="no-print">
       {notifications.map((state) => (
         <Notification key={state.id} {...state} />
       ))}
