@@ -5,11 +5,10 @@ import Box from '@mui/material/Box';
 
 import { useAppSelector } from '@/store/hooks';
 import { selectStudentsFilters } from '@/store/students/slice';
+import { IDNPValidator } from '@/utils/validators';
 
 import { StudentsTextFilter } from './textFilter';
 import { StudentsDateFilter } from './dateFilter';
-
-import { IDNPValidator } from './utils';
 
 export const StudentsFilters = memo(() => {
   const { dateBirthFrom, dateBirthTo } = useAppSelector(selectStudentsFilters);

@@ -38,3 +38,19 @@ export const updateStudent = async (id: string, payload: Partial<Student>) => {
     return null;
   }
 };
+
+export const addStudent = async (payload: Omit<Student, 'id' | 'status'>) => {
+  try {
+    const res = await fetch(`/api/students`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+    return res.json();
+  } catch (err) {
+    console.error('addStudent error:', err);
+    return null;
+  }
+};

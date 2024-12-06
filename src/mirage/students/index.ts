@@ -6,6 +6,7 @@ import { Student } from '@/types/student';
 
 import { studentsSearchRoute } from './search';
 import { studentsPatchRoute } from './patch';
+import { studentsCreateRoute } from './create';
 import fixtures from './fixtures.json';
 
 export function setupStudentsRoutes(this: Server) {
@@ -14,6 +15,7 @@ export function setupStudentsRoutes(this: Server) {
   });
   this.patch('students/:id', studentsPatchRoute);
   this.post('students/search', studentsSearchRoute);
+  this.post('students', studentsCreateRoute);
 }
 
 export function setupStudentsServer(
