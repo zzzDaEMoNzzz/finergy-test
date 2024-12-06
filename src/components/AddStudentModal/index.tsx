@@ -47,6 +47,7 @@ export const AddStudentModal = memo<Props>((props) => {
       });
       dispatch(getStudents());
       dispatch(showNotification({ description: 'Студент добавлен', severity: 'success' }));
+      formik.resetForm();
       props.onClose();
     },
   });
